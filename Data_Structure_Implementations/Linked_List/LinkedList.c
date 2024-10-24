@@ -35,7 +35,7 @@ node *create_list(){
         scanf("%d", &p->x);
 
         printf("Enter string(upto 10) :");
-        scanf("%s", p->y);  //dont need to put & here (for some reason idk)
+        scanf("%s", p->y);  //dont need to put & here (because p->y is already a pointer(?))
     }
     p->next = NULL;
     return(head);
@@ -57,8 +57,97 @@ void display(node *head){
     }
 }
 
-int main(){
-    
-    display(create_list());
 
+
+//function to insert node at beginning
+void insertAtbeginning(node **head){
+
+    node *new = (node *)malloc(sizeof(node));
+
+    printf("What data to insert at beginning?\n");
+    printf("Enter number :");
+    scanf("%d", &new->x);
+
+    printf("Enter string(upto 10) :");
+    scanf("%s", new->y);
+
+    new->next = *head;
+    *head = new;
+}
+
+
+
+//function to insert node at end
+void insertAtend(node *head){
+    node *new = (node*)malloc(sizeof(node));
+
+    printf("What data to insert at end?\n");
+    printf("Enter number :");
+    scanf("%d", &new->x);
+
+    printf("Enter string(upto 10) :");
+    scanf("%s", new->y);    
+
+    node *p = head;
+
+    while(p->next != NULL){
+        p = p->next;
+    }
+
+    p->next = new;
+    new->next = NULL;
+}
+
+
+//function for inserting node before a given target node
+void insertBefore(node **head){
+    int target;
+
+    printf("Enter target (int here) to insert before");
+    scanf("%d", &target);
+
+    node *new = (node *)malloc(sizeof(node));
+    
+    printf("What data to insert before target?\n");
+    printf("Enter number :");
+    scanf("%d", &new->x);
+
+    printf("Enter string(upto 10) :");
+    scanf("%s", new->y);
+
+    node *p = *head;
+
+    while(p->next!=NULL && p->next->x != target){
+        p = p->next;
+    }
+
+    if(p->next!=NULL){
+        new->next = p->next;
+        p->next = new;
+    }else{
+        printf("Target node not found");
+        free(new);
+    }
+}
+
+
+void main(){
+    
+    node *x = create_list();
+
+    display(x);
+
+    insertAtbeginning(&x);
+
+    display(x);
+
+    insertAtend(x);
+
+    display(x);
+    
+    insertBefore(&x);
+
+    display(x);
+
+    free(x);
 }
