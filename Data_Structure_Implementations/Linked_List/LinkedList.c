@@ -57,7 +57,29 @@ void display(node *head){
     }
 }
 
+//function to search for a target 
+void searchtarget(node *head) {
+    int target;
 
+    printf("Enter target (int here) to search for: ");
+    scanf("%d", &target);
+    
+    node *p = head;
+
+    while (p != NULL && p->x != target) {
+        p = p->next;
+    }
+
+    if (p == NULL) {
+        printf("Target not found\n");
+        return;
+    }
+
+    printf("Target found\n");
+    printf("Data in target node:\n");
+    printf("Integer: %d\n", p->x);
+    printf("String: %s\n", p->y);
+}
 
 //function to insert node at beginning
 void insertAtbeginning(node **head){
